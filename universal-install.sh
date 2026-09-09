@@ -3,7 +3,7 @@
 set -e
 
 # EDIT THIS after uploading Verse Panel to your own GitHub repo:
-REPO_URL="https://github.com/<your-username>/<your-repo>"
+REPO_URL="https://github.com/kidscartoonverse-dotcom/Verse-Panel"
 
 echo "=================================================="
 echo "   Verse Panel — Universal Installer"
