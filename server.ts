@@ -151,7 +151,7 @@ async function startServer() {
   }
 
   httpServer.listen(PORT, "0.0.0.0", () => {
-    console.log(`Verse Panel running on port ${PORT}`);
+    console.log(`Verse Panel (based on JTG Panel by Jishnu, modified by Verseedit) running on port ${PORT}`);
   });
 }
 

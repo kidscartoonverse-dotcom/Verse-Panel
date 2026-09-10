@@ -25,7 +25,7 @@ elif [ -d "Jtg" ] && [ -f "Jtg/package.json" ]; then
     WORK_DIR="Jtg"
 else
     # EDIT THIS after uploading Verse Panel to your own GitHub repo:
-    git clone https://github.com/<your-username>/<your-repo> Jtg 2>/dev/null || true
+    git clone https://github.com/kidscartoonverse-dotcom/Verse-Panel Jtg 2>/dev/null || true
     WORK_DIR="Jtg"
 fi
 cd "$WORK_DIR" || true
