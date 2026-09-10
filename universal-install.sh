@@ -2,8 +2,7 @@
 # Verse Panel — Universal Installer (works on both Termux/Android and VPS/Linux)
 set -e
 
-# EDIT THIS after uploading Verse Panel to your own GitHub repo:
-REPO_URL="https://github.com/<your-username>/<your-repo>"
+REPO_URL="https://github.com/kidscartoonverse-dotcom/Verse-Panel"
 
 echo "=================================================="
 echo "   Verse Panel — Universal Installer"
@@ -14,6 +13,14 @@ if [ -f "package.json" ] && [ -f "install.sh" ]; then
   : # already inside the panel folder — nothing to do
 elif [ -d "verse-panel" ] && [ -f "verse-panel/package.json" ]; then
   cd verse-panel
+elif [ -d "verse-panel/.git" ]; then
+  echo "Existing incomplete clone found in ./verse-panel — updating it instead of re-cloning..."
+  cd verse-panel
+  git pull --no-edit || true
+elif [ -d "verse-panel" ]; then
+  echo "A 'verse-panel' folder already exists here but isn't a valid clone."
+  echo "Remove or rename it first, e.g.: rm -rf verse-panel"
+  exit 1
 else
   echo "Panel not found here — cloning from $REPO_URL ..."
   if ! command -v git > /dev/null 2>&1; then

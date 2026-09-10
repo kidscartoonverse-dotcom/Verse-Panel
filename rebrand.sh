@@ -101,6 +101,10 @@ except FileNotFoundError:
 PYEOF
 fi
 
+# CRITICAL: Repo URL placeholders must always point to our own repo, never upstream/placeholder
+sed -i 's#https://github.com/<your-username>/<your-repo>#https://github.com/kidscartoonverse-dotcom/Verse-Panel#g' install.sh universal-install.sh 2>/dev/null || true
+sed -i 's#git clone https://github.com/JishnuTheGamer/Jtg Jtg#git clone https://github.com/kidscartoonverse-dotcom/Verse-Panel Jtg#g' install.sh 2>/dev/null || true
+
 # Sidebar footer credit (kept — required by MIT attribution clause)
 grep -q "Modified by Verseedit" src/components/Sidebar.tsx 2>/dev/null || \
   echo "  [!] Sidebar.tsx credit line missing — check manually" 
