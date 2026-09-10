@@ -70,6 +70,37 @@ except FileNotFoundError:
     pass
 PYEOF
 
+# CRITICAL: Termux has no real /tmp (root fs is read-only there) — ensure SAFE_TMP shim exists
+if ! grep -q "SAFE_TMP=" install.sh 2>/dev/null; then
+  python3 - <<'PYEOF' 2>/dev/null || true
+import re
+try:
+    with open("install.sh") as f:
+        content = f.read()
+    shim = (
+        "\n# Termux doesn't have a real /tmp (root filesystem is read-only there) —\n"
+        "# use $PREFIX/tmp instead when running under Termux.\n"
+        'if [ -n "$PREFIX" ] && [ -d "$PREFIX" ]; then\n'
+        '    SAFE_TMP="$PREFIX/tmp"\n'
+        "else\n"
+        '    SAFE_TMP="/tmp"\n'
+        "fi\n"
+        'mkdir -p "$SAFE_TMP" 2>/dev/null || true\n'
+    )
+    content = content.replace("\nRED='\\033[0;31m'", shim + "\nRED='\\033[0;31m'", 1)
+    content = re.sub(r'"/tmp/(\$\{step_id\}\.log)"', r'"${SAFE_TMP}/\1"', content)
+    content = content.replace('-o /tmp/node22.tar.xz', '-o "${SAFE_TMP}/node22.tar.xz"')
+    content = content.replace('if [ -f "/tmp/node22.tar.xz" ]', 'if [ -f "${SAFE_TMP}/node22.tar.xz" ]')
+    content = content.replace('-xJf /tmp/node22.tar.xz', '-xJf "${SAFE_TMP}/node22.tar.xz"')
+    content = content.replace('rm -f /tmp/node22.tar.xz', 'rm -f "${SAFE_TMP}/node22.tar.xz"')
+    with open("install.sh", "w") as f:
+        f.write(content)
+    print("  [ok] Applied Termux SAFE_TMP shim")
+except FileNotFoundError:
+    pass
+PYEOF
+fi
+
 # Sidebar footer credit (kept — required by MIT attribution clause)
 grep -q "Modified by Verseedit" src/components/Sidebar.tsx 2>/dev/null || \
   echo "  [!] Sidebar.tsx credit line missing — check manually" 
