@@ -1213,7 +1213,7 @@ export default function AdminSettingsPage(): React.ReactElement {
                 </div>
               </div>
               <p className="text-muted-foreground text-sm mb-6 max-w-2xl">
-                Trigger an automatic update of Verse Panel (based on JTG Panel by Jishnu, modified by Verseedit). This will run git pull and rebuild the system. The panel will be unavailable for a few seconds during this process.
+                Trigger an automatic update of Verse Panel. This will run git pull and rebuild the system. The panel will be unavailable for a few seconds during this process.
               </p>
               <button 
                 onClick={handleSystemUpdate}

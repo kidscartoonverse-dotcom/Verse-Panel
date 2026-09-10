@@ -1,6 +1,5 @@
 # Verse Panel
 
-Originally JTG Panel, made by Jishnu — modified by Verseedit.
 
 ## Quick Automated Setup (Recommended)
 
@@ -23,8 +22,8 @@ Menu Options:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/JishnuTheGamer/Jtg.git
-   cd Jtg
+   git clone https://github.com/kidscartoonverse-dotcom/Verse-Panel.git
+   cd Verse-Panel
    ```
 
 2. Install dependencies:

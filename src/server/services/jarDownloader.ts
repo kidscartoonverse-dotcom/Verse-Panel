@@ -116,7 +116,7 @@ export const downloadJar = async (type: string, version: string, destPath: strin
     // Default: Paper server (or fallback to Purpur/Spigot)
     try {
       const paperApiHeaders = {
-        "User-Agent": "JTG-Panel/2.0 (https://github.com/jtg-panel; admin@jtgpanel.internal)",
+        "User-Agent": "VersePanel/2.0 (https://github.com/kidscartoonverse-dotcom/Verse-Panel)",
         "Accept": "application/json"
       };
       const vRes = await axios.get(`https://fill.papermc.io/v3/projects/paper/versions/${normVersion}`, {

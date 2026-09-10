@@ -73,9 +73,9 @@
     "typescript": "~5.8.2",
     "vite": "^6.2.3"
   },
-  "description": "Made by Jishnu",
+  "description": "Verse Panel — game/bot server hosting panel",
   "main": "inspect_docker.js",
   "keywords": [],
-  "author": "",
+  "author": "Verseedit",
   "license": "ISC"
 }

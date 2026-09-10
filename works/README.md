@@ -1,8 +1,8 @@
-# JTG Panel — System Architecture & Works Documentation
+# Verse Panel — System Architecture & Works Documentation
 
 ## 1. Overview & Architecture
 
-JTG Panel is a modern, high-performance Game Server Management Panel designed for Minecraft and related game servers.
+Verse Panel is a modern, high-performance Game Server Management Panel designed for Minecraft and related game servers.
 
 ### Architectural Layers
 - **Frontend**: React 18 with TypeScript, Tailwind CSS, Lucide icons, Socket.IO client, and Axios.

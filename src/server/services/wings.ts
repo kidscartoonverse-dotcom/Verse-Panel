@@ -61,7 +61,7 @@ export class WingsRuntimeProvider implements GameServerRuntimeProvider {
       uuid: server.id,
       meta: {
         name: server.name || "Minecraft Server",
-        description: "JTG Managed Server"
+        description: "Verse Panel Managed Server"
       },
       suspended: false,
       environment: {

@@ -425,7 +425,7 @@ export default function CreateServer() {
               <ArrowLeft className="w-3.5 h-3.5" /> INSTANCES
             </button>
             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/servers'); }} className="flex items-center gap-3 group">
-              <span className="font-display font-bold text-lg tracking-wide">JTG <span className="text-[#8f8f8f] font-medium">PANEL</span></span>
+              <span className="font-display font-bold text-lg tracking-wide">VERSE <span className="text-[#8f8f8f] font-medium">PANEL</span></span>
               <div className="w-7 h-7 bg-white flex items-center justify-center group-hover:rotate-45 transition-transform duration-500">
                 <div className="w-3.5 h-3.5 bg-black"></div>
               </div>

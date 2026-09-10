@@ -1,0 +1,60 @@
+name: Sync upstream JTG Panel updates
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # runs daily at 3 AM UTC
+  workflow_dispatch: {}     # lets you also trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Verse Panel
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "Verseedit"
+          git config user.email "kidscartoonverse@gmail.com"
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/JishnuTheGamer/Jtg.git || true
+          git fetch upstream
+
+      - name: Merge upstream changes
+        id: merge
+        run: |
+          set +e
+          git merge upstream/main --no-edit -X ours
+          echo "merge_status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Reapply Verse Panel branding
+        run: |
+          chmod +x rebrand.sh
+          ./rebrand.sh
+
+      - name: Commit branding pass (if anything changed)
+        run: |
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: reapply Verse Panel branding after upstream sync"
+
+      - name: Push changes
+        run: git push origin main
+
+      - name: Open issue if merge had conflicts
+        if: steps.merge.outputs.merge_status != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "Upstream sync needs manual review",
+              body: "The automatic sync from JishnuTheGamer/Jtg hit a conflict that -X ours could not cleanly resolve. Please check the `sync-upstream` workflow run and merge manually if needed."
+            })

@@ -10,7 +10,7 @@ const USERS_FILE = path.join(DATA_DIR, "users.json");
 fs.ensureDirSync(DATA_DIR);
 if (!fs.existsSync(USERS_FILE)) fs.writeFileSync(USERS_FILE, "[]");
 
-console.log("=== JTG Panel Owner User Creation ===");
+console.log("=== Verse Panel Owner User Creation ===");
 
 async function run() {
   const users = await fs.readJson(USERS_FILE);

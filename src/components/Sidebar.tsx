@@ -88,7 +88,7 @@ export function Sidebar({ onClose, isCollapsed, toggleCollapse }: { onClose?: ()
               <span className="tracking-wider">VERSE PANEL</span>
               <span className="text-theme-500 font-semibold px-1.5 py-0.5 rounded bg-theme-500/10 border border-theme-500/20">v3.0.0</span>
             </div>
-            <span className="text-[9px] opacity-60">Original by Jishnu (JTG Panel) — Modified by Verseedit</span>
+            <span className="text-[9px] opacity-60">Verse Panel</span>
           </div>
         )}
         {isCollapsed ? (

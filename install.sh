@@ -1,6 +1,6 @@
 #!/bin/bash
 # =========================================================
-# Verse Panel (based on JTG Panel by Jishnu) - Automated Installation & Management Script
+# Verse Panel - Automated Installation & Management Script
 # Modified by Verseedit
 # =========================================================
 
@@ -25,7 +25,7 @@ elif [ -d "Jtg" ] && [ -f "Jtg/package.json" ]; then
     WORK_DIR="Jtg"
 else
     # EDIT THIS after uploading Verse Panel to your own GitHub repo:
-    git clone https://github.com/kidscartoonverse-dotcom/Verse-Panel Jtg 2>/dev/null || true
+    git clone https://github.com/<your-username>/<your-repo> Jtg 2>/dev/null || true
     WORK_DIR="Jtg"
 fi
 cd "$WORK_DIR" || true
@@ -104,7 +104,7 @@ execute_step() {
     local msg="$1"
     shift
     local step_id="jtg_step_$RANDOM"
-    local log_file="$PREFIX/tmp/${step_id}.log"
+    local log_file="/tmp/${step_id}.log"
     rm -f "$log_file"
     
     printf "  ${CYAN}→${NC} %-42s " "$msg"
@@ -277,10 +277,10 @@ install_node() {
                 *) NODE_ARCH="x64" ;;
             esac
             local NODE_DIST="node-v22.13.1-linux-${NODE_ARCH}"
-            curl -fsSL "https://nodejs.org/dist/v22.13.1/${NODE_DIST}.tar.xz" -o $PREFIX/tmp/node22.tar.xz > /dev/null 2>&1 || true
-            if [ -f "$PREFIX/tmp/node22.tar.xz" ]; then
-                sudo tar -xJf $PREFIX/tmp/node22.tar.xz -C /usr/local --strip-components=1 > /dev/null 2>&1 || true
-                rm -f $PREFIX/tmp/node22.tar.xz
+            curl -fsSL "https://nodejs.org/dist/v22.13.1/${NODE_DIST}.tar.xz" -o /tmp/node22.tar.xz > /dev/null 2>&1 || true
+            if [ -f "/tmp/node22.tar.xz" ]; then
+                sudo tar -xJf /tmp/node22.tar.xz -C /usr/local --strip-components=1 > /dev/null 2>&1 || true
+                rm -f /tmp/node22.tar.xz
             fi
         fi
     fi
@@ -611,11 +611,11 @@ show_status() {
     local DEV_STATUS="OFF"
     local SFTP_STATUS="OFF"
     
-    if (run_pm2 list 2>/dev/null | grep "jtg-main" | grep -q "online") ||        (command -v docker &> /dev/null && docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^jtg-main$") ||        curl -s -m 2 http://127.0.0.1:6767/api/health 2>/dev/null | grep -q "JTG Panel"; then
+    if (run_pm2 list 2>/dev/null | grep "jtg-main" | grep -q "online") ||        (command -v docker &> /dev/null && docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^jtg-main$") ||        curl -s -m 2 http://127.0.0.1:6767/api/health 2>/dev/null | grep -q "Verse Panel"; then
         MAIN_STATUS="ONLINE"
     fi
     
-    if (run_pm2 list 2>/dev/null | grep "jtg-admin" | grep -q "online") ||        (command -v docker &> /dev/null && docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^jtg-admin$") ||        curl -s -m 2 http://127.0.0.1:3000/api/health 2>/dev/null | grep -q "JTG Panel"; then
+    if (run_pm2 list 2>/dev/null | grep "jtg-admin" | grep -q "online") ||        (command -v docker &> /dev/null && docker ps --format '{{.Names}}' 2>/dev/null | grep -q "^jtg-admin$") ||        curl -s -m 2 http://127.0.0.1:3000/api/health 2>/dev/null | grep -q "Verse Panel"; then
         DEV_STATUS="ONLINE"
     fi
     

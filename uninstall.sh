@@ -1,6 +1,6 @@
 #!/bin/bash
 # =========================================================
-# Verse Panel (based on JTG Panel by Jishnu) - Automated Uninstall Script
+# Verse Panel - Automated Uninstall Script
 # Modified by Verseedit
 # =========================================================
 
@@ -132,7 +132,7 @@ fi
 
 print_banner
 echo "║ Runtime: $RUNTIME"
-echo "║ Panel: Verse Panel (JTG Panel base)"
+echo "║ Panel: Verse Panel"
 echo "║ Owner: $OWNER"
 echo "║"
 echo "║ Are you sure you want to uninstall Verse Panel?║"

@@ -16,7 +16,7 @@ router.get("/version", async (req, res) => {
   res.json({
     currentVersion: "3.0.0",
     latestVersion: "3.0.0",
-    panel: "JTG Panel",
+    panel: "Verse Panel",
     runtime: process.env.DEFAULT_RUNTIME || "docker",
     mainPort: 6767,
     devPort: 3000
@@ -253,7 +253,7 @@ router.put("/settings", async (req, res) => {
   } = req.body;
   const settings = await readJSON("settings.json") || {};
   if (panelName !== undefined) {
-    settings.panelName = panelName || "JTG Panel";
+    settings.panelName = panelName || "Verse Panel";
     try {
       const fs = await import("fs/promises");
       const path = await import("path");

@@ -126,9 +126,9 @@ async function ensureOwnerFromEnv() {
       });
     }
     await fs.writeJson(usersFile, users, { spaces: 2 });
-    console.log(`[JTG] Owner user '${envUser}' ensured in database.`);
+    console.log(`[Verse] Owner user '${envUser}' ensured in database.`);
   } catch (err) {
-    console.error("[JTG] Failed to ensure owner from environment:", err);
+    console.error("[Verse] Failed to ensure owner from environment:", err);
   }
 }
 
@@ -151,7 +151,7 @@ async function startServer() {
   }
 
   httpServer.listen(PORT, "0.0.0.0", () => {
-    console.log(`Verse Panel (based on JTG Panel by Jishnu, modified by Verseedit) running on port ${PORT}`);
+    console.log(`Verse Panel running on port ${PORT}`);
   });
 }
 

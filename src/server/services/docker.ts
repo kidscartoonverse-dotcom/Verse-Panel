@@ -438,7 +438,7 @@ export const createServerContainer = async (serverData: any, nodeId?: string) =>
     }
     const propsPath = path.join(serverDir, "server.properties");
     if (!fs.existsSync(propsPath)) {
-      await fs.writeFile(propsPath, `server-port=${serverData.port}\nquery.port=${serverData.port}\nenable-rcon=true\nrcon.port=${parseInt(serverData.port) + 10}\nrcon.password=admin\nmotd=A Minecraft Server on JTG Panel\n`);
+      await fs.writeFile(propsPath, `server-port=${serverData.port}\nquery.port=${serverData.port}\nenable-rcon=true\nrcon.port=${parseInt(serverData.port) + 10}\nrcon.password=admin\nmotd=A Minecraft Server on Verse Panel\n`);
     }
     const jarPath = path.join(serverDir, "server.jar");
     if (!fs.existsSync(jarPath)) {
@@ -609,13 +609,13 @@ export const startContainer = async (containerId: string, nodeId?: string) => {
           const indexPath = path.join(serverDir, "index.js");
           const pkgPath = path.join(serverDir, "package.json");
           if (!fs.existsSync(indexPath)) {
-            await fs.writeFile(indexPath, `// Node.js Application on JTG Panel\nconst http = require('http');\nconst port = process.env.PORT || process.env.SERVER_PORT || ${server.port || 3000};\n\nconsole.log('==============================================');\nconsole.log('🚀 Node.js Application Running on port ' + port);\nconsole.log('Node Version: ' + process.version);\nconsole.log('Upload your files in File Manager to customize!');\nconsole.log('==============================================');\n\nconst app = http.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'application/json' });\n  res.end(JSON.stringify({ status: 'online', runtime: 'node.js', time: new Date().toISOString() }));\n});\n\napp.listen(port, '0.0.0.0', () => {\n  console.log(\`[Server] Listening on http://0.0.0.0:\${port}\`);\n});\n`);
+            await fs.writeFile(indexPath, `// Node.js Application on Verse Panel\nconst http = require('http');\nconst port = process.env.PORT || process.env.SERVER_PORT || ${server.port || 3000};\n\nconsole.log('==============================================');\nconsole.log('🚀 Node.js Application Running on port ' + port);\nconsole.log('Node Version: ' + process.version);\nconsole.log('Upload your files in File Manager to customize!');\nconsole.log('==============================================');\n\nconst app = http.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'application/json' });\n  res.end(JSON.stringify({ status: 'online', runtime: 'node.js', time: new Date().toISOString() }));\n});\n\napp.listen(port, '0.0.0.0', () => {\n  console.log(\`[Server] Listening on http://0.0.0.0:\${port}\`);\n});\n`);
           }
           if (!fs.existsSync(pkgPath)) {
             await fs.writeFile(pkgPath, JSON.stringify({
               name: (server.name || "node-app").toLowerCase().replace(/[^a-z0-9_-]/g, '-'),
               version: "1.0.0",
-              description: "Node.js app on JTG Panel",
+              description: "Node.js app on Verse Panel",
               main: "index.js",
               scripts: { "start": "node index.js" }
             }, null, 2));
@@ -626,7 +626,7 @@ export const startContainer = async (containerId: string, nodeId?: string) => {
           const mainPath = path.join(serverDir, "main.py");
           const reqPath = path.join(serverDir, "requirements.txt");
           if (!fs.existsSync(mainPath)) {
-            await fs.writeFile(mainPath, `# Python Application on JTG Panel\nimport os\nimport sys\nfrom http.server import HTTPServer, BaseHTTPRequestHandler\n\nport = int(os.environ.get("SERVER_PORT", os.environ.get("PORT", ${server.port || 8000})))\nprint("==============================================", flush=True)\nprint("🐍 Python Application Running", flush=True)\nprint(f"Python Version: {sys.version}", flush=True)\nprint(f"Listening Port: {port}", flush=True)\nprint("Upload your files in File Manager to customize!", flush=True)\nprint("==============================================", flush=True)\n\nclass RequestHandler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        self.send_response(200)\n        self.send_header('Content-type', 'application/json')\n        self.end_headers()\n        self.wfile.write(b'{"status": "online", "runtime": "python"}')\n\n    def log_message(self, format, *args):\n        print(f"[{self.log_date_time_string()}] {format % args}", flush=True)\n\nserver = HTTPServer(('0.0.0.0', port), RequestHandler)\nprint(f"[Server] Listening on http://0.0.0.0:{port}", flush=True)\ntry:\n    server.serve_forever()\nexcept KeyboardInterrupt:\n    print("\\nStopping server...", flush=True)\n    server.server_close()\n`);
+            await fs.writeFile(mainPath, `# Python Application on Verse Panel\nimport os\nimport sys\nfrom http.server import HTTPServer, BaseHTTPRequestHandler\n\nport = int(os.environ.get("SERVER_PORT", os.environ.get("PORT", ${server.port || 8000})))\nprint("==============================================", flush=True)\nprint("🐍 Python Application Running", flush=True)\nprint(f"Python Version: {sys.version}", flush=True)\nprint(f"Listening Port: {port}", flush=True)\nprint("Upload your files in File Manager to customize!", flush=True)\nprint("==============================================", flush=True)\n\nclass RequestHandler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        self.send_response(200)\n        self.send_header('Content-type', 'application/json')\n        self.end_headers()\n        self.wfile.write(b'{"status": "online", "runtime": "python"}')\n\n    def log_message(self, format, *args):\n        print(f"[{self.log_date_time_string()}] {format % args}", flush=True)\n\nserver = HTTPServer(('0.0.0.0', port), RequestHandler)\nprint(f"[Server] Listening on http://0.0.0.0:{port}", flush=True)\ntry:\n    server.serve_forever()\nexcept KeyboardInterrupt:\n    print("\\nStopping server...", flush=True)\n    server.server_close()\n`);
           }
           if (!fs.existsSync(reqPath)) {
             await fs.writeFile(reqPath, "# Python dependencies\n");
