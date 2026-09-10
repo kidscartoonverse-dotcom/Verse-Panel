@@ -46,6 +46,30 @@ grep -q "Verse Panel (based on JTG Panel" server.ts 2>/dev/null || \
 # CRITICAL: install.sh / update.sh health checks must match the renamed API text
 sed -i 's/grep -q "JTG Panel"/grep -q "Verse Panel"/g' install.sh update.sh 2>/dev/null || true
 
+# Remove the JTG block-letter ASCII art banner in install.sh (visible during install, not caught by text search)
+python3 - <<'PYEOF' 2>/dev/null || true
+import re
+try:
+    with open("install.sh") as f:
+        content = f.read()
+    pattern = re.compile(
+        r'    echo "║     ██╗████████╗ ██████╗.*?\n'
+        r'    echo "║     ╚═╝   ╚═╝    ╚═════╝.*?\n',
+        re.DOTALL
+    )
+    new_banner = (
+        '    echo "║               V E R S E   P A N E L          ║"\n'
+        '    echo "║               INSTALLER                      ║"\n'
+    )
+    content2 = pattern.sub(new_banner, content)
+    if content2 != content:
+        with open("install.sh", "w") as f:
+            f.write(content2)
+        print("  [ok] Removed JTG ASCII art banner")
+except FileNotFoundError:
+    pass
+PYEOF
+
 # Sidebar footer credit (kept — required by MIT attribution clause)
 grep -q "Modified by Verseedit" src/components/Sidebar.tsx 2>/dev/null || \
   echo "  [!] Sidebar.tsx credit line missing — check manually" 
